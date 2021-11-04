@@ -4,21 +4,14 @@
 #include <string.h>
 #include <unistd.h>
 
-#define tprintf(n, args...) do{for(int TPFL=(n);TPFL>1;--TPFL){printf(" |  ");}if(n){printf(" |--");}printf(args);}while(0)
+#define tprintf(n, args...) do{for(int TPFL=(n);TPFL>1;--TPFL){printf(" │  ");}if(n){printf(" ├──");}printf(args);}while(0)
 
 void print_dir(int, char*);
 
 int main(int argc, char** argv)
 {
-    if(argc > 1)
-    {
-        print_dir(0, argv[1]);
-    }
-
-    else
-    {
-        print_dir(0, "./");
-    }
+    if(argc > 1) print_dir(0, argv[1]);
+    else print_dir(0, "./");
 }
 
 void print_dir(int r, char* directory)
