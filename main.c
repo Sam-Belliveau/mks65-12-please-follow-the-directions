@@ -4,7 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#define tprintf(n, args...) do{for(int TPFL=(n);TPFL>1;--TPFL){printf(" |  ");}printf(" |--");printf(args);}while(0)
+#define tprintf(n, args...) do{for(int TPFL=(n);TPFL>1;--TPFL){printf(" |  ");}if(n){printf(" |--");}printf(args);}while(0)
 
 void print_dir(int, char*);
 
@@ -33,14 +33,15 @@ void print_dir(int r, char* directory)
     d = opendir(directory);
     if(d)
     {
-        tprintf(r, "[D] %s\n", directory);
+        if(directory[0] == '.') tprintf(r, "(H) %s\n", directory);
+        else tprintf(r, "[D] %s\n", directory);
         while((entry = readdir(d)))
         {
             if(entry->d_type == DT_DIR)
             {
                 if(!strcmp(entry->d_name, ".") || !strcmp(entry->d_name, ".."))
                 {
-                    tprintf(r + 1, "[D] %s\n", entry->d_name);
+                    tprintf(r + 1, "(H) %s\n", entry->d_name);
                 } else 
                 {
                     chdir(directory);
