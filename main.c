@@ -26,15 +26,14 @@ void print_dir(int r, char* directory)
     d = opendir(directory);
     if(d)
     {
-        if(directory[0] == '.') tprintf(r, "(H) %s\n", directory);
-        else tprintf(r, "[D] %s\n", directory);
+        tprintf(r, "[D] %s\n", directory);
         while((entry = readdir(d)))
         {
             if(entry->d_type == DT_DIR)
             {
                 if(!strcmp(entry->d_name, ".") || !strcmp(entry->d_name, ".."))
                 {
-                    tprintf(r + 1, "(H) %s\n", entry->d_name);
+                    tprintf(r + 1, "[D] %s\n", entry->d_name);
                 } else 
                 {
                     chdir(directory);
